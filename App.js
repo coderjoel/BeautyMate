@@ -15,6 +15,7 @@ import Login from './src/views/landing/login'
 import Register from './src/views/landing/registration'
 import Products from './src/views/productViews/products'
 import Profile from './src/views/profile/profile'
+import AboutProduct from './src/views/productViews/aboutProduct'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,6 +42,7 @@ function App() {
         <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
         <Stack.Screen name="Register" component={Register} options={{ title: 'Register' }} />
         <Stack.Screen name="HomeTabs" component={HomeTabs} />
+        <Stack.Screen name="About" component={AboutProduct} />
       </Stack.Navigator>
     </NavigationContainer>
   );
