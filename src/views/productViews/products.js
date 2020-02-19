@@ -14,7 +14,7 @@ function Products({ navigation }) {
   return (
     <View>
       <Text>HI</Text>
-      <Button onPress={() => navigation.navigate("About")}><Text>This button will lead you to about page</Text></Button>
+      <Button onPress={() => navigation.navigate("OrderDetail")}><Text>This button will lead you to about page</Text></Button>
     </View>
   );
 }

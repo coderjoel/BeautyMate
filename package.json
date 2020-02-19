@@ -15,19 +15,24 @@
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.0.5",
     "native-base": "^2.13.8",
-    "react": "16.9.0",
+    "react": "^16.12.0",
+    "react-hook-form": "^4.9.6",
     "react-native": "0.61.5",
+    "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-ratings": "^6.5.0",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
-    "react-native-screens": "^2.0.0-beta.4"
+    "react-native-screens": "^2.0.0-beta.4",
+    "react-native-status-bar-height": "^2.4.0",
+    "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
     "@babel/core": "7.8.4",
     "@babel/runtime": "7.8.4",
     "@react-native-community/eslint-config": "0.0.5",
     "babel-jest": "24.9.0",
-    "eslint": "6.8.0",
+    "eslint": "^5.16.0",
     "jest": "24.9.0",
     "metro-react-native-babel-preset": "0.56.4",
     "react-test-renderer": "16.9.0"

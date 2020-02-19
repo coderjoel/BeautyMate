@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 
-function Cart() {
+class Cart extends Component {
+  render() {
+    return (
+      <View>
+        <Text>HI</Text>
+      </View>
+    );
+  }
+}
+
+/*function Cart() {
   return (
     <View>
-        <Text>HI</Text>
+      <Text>HI</Text>
     </View>
   );
-}
+}*/
 
 export default Cart;
