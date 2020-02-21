@@ -14,58 +14,59 @@ import {
   Image,
 } from 'react-native';
 
-export default class Login extends Component {
-  render() {
-    const Divider = props => {
-      return (
-        <View {...props}>
-          <View style={styles.line}></View>
-          <Text style={styles.TextOR}> OR </Text>
-          <View style={styles.line}></View>
-        </View>
-      );
-    };
+function Login({navigation}) {
+  const Divider = props => {
     return (
-      //Solution for not dismiss Keyboard when click outside of TextInput
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <View style={styles.up}>
-            <Text style={styles.title}>Login page</Text>
-          </View>
-          <View style={styles.down}>
-            <View style={styles.textInputContainer}>
-              <TextInput
-                style={styles.textInput}
-                textContentType="emailAddress"
-                keyboardType="email-address"
-                placeholder="Enter your email"></TextInput>
-            </View>
-            <View style={styles.textInputContainer}>
-              <TextInput
-                style={styles.textInput}
-                placeholder="Enter your password"
-                secureTextEntry={true}></TextInput>
-            </View>
-            <TouchableOpacity style={styles.loginButton}>
-              <Text style={styles.loginButtonTitle}>LOGIN</Text>
-            </TouchableOpacity>
-            <Divider style={styles.divider}></Divider>
-            <FontAwesome.Button
-              style={styles.facebookButton}
-              name="facebook"
-              backgroundColor="#3b5998">
-              <Text style={styles.loginButtonTitle}>Login with Facebook</Text>
-            </FontAwesome.Button>
-
-            <Image
-              source={require('../images/BeautyMate_v1.png')}
-              style={styles.logo}></Image>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+      <View {...props}>
+        <View style={styles.line}></View>
+        <Text style={styles.TextOR}> OR </Text>
+        <View style={styles.line}></View>
+      </View>
     );
-  }
+  };
+  return (
+    //Solution for not dismiss Keyboard when click outside of TextInput
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.up}>
+          <Text style={styles.title}>Login page</Text>
+        </View>
+        <View style={styles.down}>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              style={styles.textInput}
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              placeholder="Enter your email"></TextInput>
+          </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter your password"
+              secureTextEntry={true}></TextInput>
+          </View>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => navigation.navigate('HomeTabs')}>
+            <Text style={styles.loginButtonTitle}>LOGIN</Text>
+          </TouchableOpacity>
+          <Divider style={styles.divider}></Divider>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.loginButtonTitle}>Register</Text>
+          </TouchableOpacity>
+
+          <Image
+            source={require('../images/BeautyMate_v1.png')}
+            style={styles.logo}></Image>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  );
 }
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
