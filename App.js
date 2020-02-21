@@ -19,6 +19,7 @@ import AboutProduct from './src/views/productViews/aboutProduct'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const API = "http://beauty-mate-api.azurewebsites.net/api";
 
 function HomeTabs() {
   return (
@@ -36,6 +37,8 @@ function HomeTabs() {
   );
 }
 function App() {
+  global.API = API;
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

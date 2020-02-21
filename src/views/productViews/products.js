@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, ListView } from 'react-native';
 import { Button, List, ListItem, Card, CardItem, } from 'native-base';
+import axios from 'axios';
 
 function Products({ navigation }) {
 
 
 
+
+  const [items, setItems] = useState([]);
+
   //call api to set objects
-  //temp code
-  var obj1 = {
-    Name: "Abc",
-    Price: "123",
-    Description: "ADBAHSdb kjasdn askjdsandjlasn djknasjk ndjkasnd jknaskdnkasndknasdasdaskjdjasdknasd.sadjasdkasjdioijasldaslkdla."
-  }
-  var obj2 = {
-    Name: "Dbc",
-    Price: "256",
-    Description: "ADBAHSdb kjasdn askjdsandjlasn djknasjk ndjkasnd jknaskdnkasndknasdasdaskjdjasdknasd.sadjasdkasjdioijasldaslkdla."
-  }
-  var listFromApi = [
-    obj1, obj2, obj1, obj2
-  ];
-  ///
-  const [items, setItems] = useState(listFromApi);
+  useEffect((a) => {
+    console.log("this is a", global.API + "/Product/GetProducts");
+    // setItems(listFromApi);
 
-
-  // useEffect((a) => {
-  //   console.log("this is a", items);
-  //   // setItems(listFromApi);
-  // }, []);
+    axios.get(global.API + "/Product/GetProducts")
+      .then(res => {
+        console.log(res.data);
+        setItems(res.data);
+      })
+  }, []);
 
 
   return (
@@ -38,18 +30,18 @@ function Products({ navigation }) {
         dataArray={items}
         renderRow={(rowData) => (
           <Card style={{ flexDirection: 'row' }} >
-            <CardItem style={{ width: "50%" }} button onPress={() => navigation.navigate("About")}>
+            <CardItem style={{ width: "30%" }} button onPress={() => navigation.navigate("About")}>
               <View>
                 {/* Image goes here */}
               </View>
             </CardItem>
-            <CardItem style={{ width: "50%" }} button onPress={() => navigation.navigate("About")}>
+            <CardItem style={{ width: "70%" }} button onPress={() => navigation.navigate("About")}>
               <View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text>{rowData.Name}</Text>
-                  <Text>Price: {rowData.Price}</Text>
+                  <Text>{rowData.name}</Text>
+                  <Text>Price: {rowData.price}</Text>
                 </View>
-                <Text>{rowData.Description}</Text>
+                <Text>{rowData.description}</Text>
               </View>
             </CardItem>
           </Card>
