@@ -19,7 +19,7 @@ import AboutProduct from './src/views/productViews/aboutProduct';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const API = 'http://beauty-mate-api.azurewebsites.net/api';
+const API = "http://beauty-mate-api.azurewebsites.net/api";
 
 function HomeTabs() {
   //whatever comes before render
