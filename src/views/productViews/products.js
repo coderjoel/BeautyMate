@@ -30,12 +30,16 @@ function Products({ navigation }) {
         dataArray={items}
         renderRow={(rowData) => (
           <Card style={{ flexDirection: 'row' }} >
-            <CardItem style={{ width: "30%" }} button onPress={() => navigation.navigate("About")}>
+            <CardItem style={{ width: "30%" }} button onPress={() => navigation.navigate("About", {
+              item: rowData,
+            })}>
               <View>
                 {/* Image goes here */}
               </View>
             </CardItem>
-            <CardItem style={{ width: "70%" }} button onPress={() => navigation.navigate("About")}>
+            <CardItem style={{ width: "70%" }} button onPress={() => navigation.navigate("About", {
+              item: rowData,
+            })}>
               <View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text>{rowData.name}</Text>
