@@ -11,7 +11,7 @@ import {SafeAreaView, StyleSheet, ScrollView, View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Login from './src/views/landing/Login';
+import Login from './src/views/landing/login';
 import Register from './src/views/landing/Registration';
 import Products from './src/views/productViews/products';
 import Profile from './src/views/profile/profile';
@@ -19,7 +19,7 @@ import AboutProduct from './src/views/productViews/aboutProduct';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const API = "http://beauty-mate-api.azurewebsites.net/api";
+const API = 'http://beauty-mate-api.azurewebsites.net/api';
 
 function HomeTabs() {
   //whatever comes before render

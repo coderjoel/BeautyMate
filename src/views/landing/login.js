@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 //import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
@@ -13,6 +13,7 @@ import {
   Keyboard,
   Image,
 } from 'react-native';
+import axios from 'axios';
 
 function Login({navigation}) {
   const Divider = props => {
@@ -24,6 +25,27 @@ function Login({navigation}) {
       </View>
     );
   };
+
+  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState('');
+  function loginPress() {
+    console.log('I am called');
+    axios
+      .post(global.API + '/Account/Login', {
+        EmailOrUsername: login,
+        Password: password,
+        Code: 'string',
+      })
+      .then(res => {
+        console.log(res.data);
+        navigation.navigate('HomeTabs');
+      })
+      .catch(function(error) {
+        console.log(error);
+        navigation.navigate('Register');
+      });
+  }
+
   return (
     //Solution for not dismiss Keyboard when click outside of TextInput
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -37,17 +59,17 @@ function Login({navigation}) {
               style={styles.textInput}
               textContentType="emailAddress"
               keyboardType="email-address"
-              placeholder="Enter your email"></TextInput>
+              placeholder="Enter your email"
+              onChangeText={text => setLogin(text)}></TextInput>
           </View>
           <View style={styles.textInputContainer}>
             <TextInput
               style={styles.textInput}
               placeholder="Enter your password"
-              secureTextEntry={true}></TextInput>
+              secureTextEntry={true}
+              onChangeText={text => setPassword(text)}></TextInput>
           </View>
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={() => navigation.navigate('HomeTabs')}>
+          <TouchableOpacity style={styles.loginButton} onPress={loginPress}>
             <Text style={styles.loginButtonTitle}>LOGIN</Text>
           </TouchableOpacity>
           <Divider style={styles.divider}></Divider>
