@@ -1,4 +1,5 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, { useState, useEffect, Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   Platform,
@@ -14,7 +15,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-function Login({navigation}) {
+function Login({ navigation }) {
   const Divider = props => {
     return (
       <View {...props}>
@@ -37,9 +38,16 @@ function Login({navigation}) {
       })
       .then(res => {
         console.log(res.data);
+        storeData = async () => {
+          try {
+            await AsyncStorage.setItem('@storage_Key', res.Token)
+          } catch (e) {
+            // saving error
+          }
+        }
         navigation.navigate('HomeTabs');
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         navigation.navigate('Register');
       });

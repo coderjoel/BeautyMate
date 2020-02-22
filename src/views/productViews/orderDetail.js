@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Text, TextInput, KeyboardAv
 import { Button, Header, Image } from 'react-native-elements';
 import { useForm, FormContext } from 'react-hook-form';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 function OrderDetail({ navigation, route }) {
 
@@ -18,23 +19,38 @@ function OrderDetail({ navigation, route }) {
 
 
   function orderPress() {
-    console.log('I am called');
-    axios
-      .post(global.API + '/Order/Purchase', {
-        Products: [{
-          ProductId: obj.id,
-          Quantity: 1
+    var TokenHere;
+    getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@storage_Key')
+        if (value !== null) {
+          axios
+            .post(global.API + '/Order/Purchase', {
+              headers: {
+                Authorization: value
+              },
+              Products: [{
+                ProductId: obj.id,
+                Quantity: 1
+              }
+              ],
+              Email: emailAddress
+            })
+            .then(res => {
+              console.log(res.data);
+              navigation.navigate('HomeTabs');
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
-        ],
-        Email: emailAddress
-      })
-      .then(res => {
-        console.log(res.data);
-        navigation.navigate('HomeTabs');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      } catch (e) {
+        // error reading value
+      }
+    }
+
+    console.log('I am called', global.Token);
+
   }
 
 

@@ -21,6 +21,7 @@ import OrderDetail from './src/views/productViews/orderDetail';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const API = 'http://beauty-mate-api.azurewebsites.net/api';
+global.Token; //only god will save my soul
 
 function HomeTabs() {
   //whatever comes before render
@@ -42,7 +43,6 @@ function HomeTabs() {
 }
 function App() {
   global.API = API;
-
   return (
     //<OrderDetail />
     <NavigationContainer>
