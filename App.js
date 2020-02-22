@@ -43,6 +43,7 @@ function App() {
   global.API = API;
 
   return (
+    //<OrderDetail />
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -57,6 +58,7 @@ function App() {
         />
         <Stack.Screen name="HomeTabs" component={HomeTabs} />
         <Stack.Screen name="About" component={AboutProduct} />
+        <Stack.Screen name="OrderDetail" component={OrderDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
