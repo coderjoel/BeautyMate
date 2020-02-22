@@ -1,120 +1,132 @@
-import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, TextInput } from 'react-native';
+import React, { Component, useState, useEffect, } from 'react';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Button, Header, Image } from 'react-native-elements';
 import { useForm, FormContext } from 'react-hook-form';
+import axios from 'axios';
 
-class OrderDetail extends Component {
+function OrderDetail({ navigation, route }) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      FirstLastName: "",
-      StreetAddress: "",
-      City: "",
-      Province: "",
-      PostalCode: "",
-      PhoneNumber: "",
-      EmailAddress: ""
-    };
+  const obj = route.params.item;
+
+  const [firstLastName, setFirstLastName] = useState('');
+  const [streetAddress, setStreetAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [province, setProvince] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
+
+
+  function orderPress() {
+    console.log('I am called');
+    axios
+      .post(global.API + '/Order/Purchase', {
+        Products: [{
+          ProductId: obj.id,
+          Quantity: 1
+        }
+        ],
+        Email: emailAddress
+      })
+      .then(res => {
+        console.log(res.data);
+        navigation.navigate('HomeTabs');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  render() {
 
-    const { FirstLastName, StreetAddress, City, Province, PostalCode, PhoneNumber, EmailAddress } = this.state;
+  return (
 
-    return (
+    <KeyboardAvoidingView style={styles.forMainView} behavior="padding" enabled>
+      <Text style={styles.screenTitle}>Delivery Information</Text>
 
-      <View style={styles.forMainView}>
-        <Text style={styles.screenTitle}>Delivery Information</Text>
+      <Text style={styles.descprition}>First and Last Name</Text>
 
-        <Text style={styles.descprition}>First and Last Name</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="John Smith"
+        blurOnSubmit
+        onChangeText={text => setfirstLastName(text)}
+        value={firstLastName}
+      />
 
+
+
+      <Text style={styles.descprition}>Street Address</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="10 John Street"
+        blurOnSubmit
+        onChangeText={text => setStreetAddress(text)}
+        value={streetAddress}
+      />
+
+
+      <View style={styles.nested}>
+
+        <Text style={styles.descprition}>City</Text>
         <TextInput
-          style={styles.textInput}
-          placeholder="John Smith"
+          style={styles.InnerTextInput}
+          placeholder="Toronto"
           blurOnSubmit
-          onChangeText={text => this.setState({ FirstLastName: text })}
-          value={FirstLastName}
+          onChangeText={text => setCity(text)}
+          value={city}
+        />
+        <Text style={{ marginLeft: 50 }}>
+        </Text>
+
+        <Text style={styles.InnerDescprition}>Postal Code</Text>
+        <TextInput
+          style={styles.InnerTextInput}
+          placeholder="A1A1A1"
+          blurOnSubmit
+          onChangeText={text => setPostalCode(text)}
+          value={postalCode}
+        />
+      </View>
+      <View style={styles.nested}>
+
+        <Text style={styles.InnerDescprition}>Province</Text>
+        <TextInput
+          style={styles.InnerTextInput}
+          placeholder="ON"
+          blurOnSubmit
+          onChangeText={text => setProvince(text)}
+          value={province}
         />
 
+        <Text style={{ marginLeft: 50 }}>
+        </Text>
 
-
-        <Text style={styles.descprition}>Street Address</Text>
+        <Text style={styles.InnerDescprition}>Phone#</Text>
         <TextInput
-          style={styles.textInput}
-          placeholder="10 John Street"
+          style={styles.InnerTextInput}
+          placeholder="3211233212"
           blurOnSubmit
-          onChangeText={text => this.setState({ StreetAddress: text })}
-          value={StreetAddress}
+          onChangeText={text => setPhoneNumber(text)}
+          value={phoneNumber}
         />
-
-
-        <View style={styles.nested}>
-
-          <Text style={styles.descprition}>City</Text>
-          <TextInput
-            style={styles.InnerTextInput}
-            placeholder="Toronto"
-            blurOnSubmit
-            onChangeText={text => this.setState({ City: text })}
-            value={City}
-          />
-          <Text style={{ marginLeft: 50 }}>
-          </Text>
-
-          <Text style={styles.InnerDescprition}>Postal Code</Text>
-          <TextInput
-            style={styles.InnerTextInput}
-            placeholder="A1A1A1"
-            blurOnSubmit
-            onChangeText={text => this.setState({ PostalCode: text })}
-            value={PostalCode}
-          />
-        </View>
-        <View style={styles.nested}>
-
-          <Text style={styles.InnerDescprition}>Province</Text>
-          <TextInput
-            style={styles.InnerTextInput}
-            placeholder="ON"
-            blurOnSubmit
-            onChangeText={text => this.setState({ Province: text })}
-            value={Province}
-          />
-
-          <Text style={{ marginLeft: 50 }}>
-          </Text>
-
-          <Text style={styles.InnerDescprition}>Phone#</Text>
-          <TextInput
-            style={styles.InnerTextInput}
-            placeholder="3211233212"
-            blurOnSubmit
-            onChangeText={text => this.setState({ PhoneNumber: text })}
-            value={PhoneNumber}
-          />
-        </View>
-
-        <Text style={styles.descprition}>Email </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="10John@gmail.com"
-          blurOnSubmit
-          onChangeText={text => this.setState({ StreetAddress: text })}
-          value={EmailAddress}
-        />
-
-        <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
-          title="PLACE ORDER"
-          onPress={this.order}>
-        </Button>
-
       </View>
 
+      <Text style={styles.descprition}>Email </Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="10John@gmail.com"
+        blurOnSubmit
+        onChangeText={text => setEmailAddress(text)}
+        value={emailAddress}
+      />
 
+      <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
+        title="PLACE ORDER"
+        onPress={orderPress}>
+      </Button>
 
-    );
-  }
+    </KeyboardAvoidingView>
+  );
 
 }
 
@@ -223,12 +235,12 @@ const styles = {
   }
 }
 
-    /**
+/**
 function OrderDetail() {
-  return (
-    <View>
-          <Text>HI</Text>
-        </View>
-        );
-      }
-      */
+return (
+<View>
+      <Text>HI</Text>
+    </View>
+    );
+  }
+  */

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,10 +7,10 @@ import {
   Text,
   ListView,
 } from 'react-native';
-import {Button, List, ListItem, Card, CardItem} from 'native-base';
+import { Button, List, ListItem, Card, CardItem } from 'native-base';
 import axios from 'axios';
 
-function Products({navigation}) {
+function Products({ navigation }) {
   const [items, setItems] = useState([]);
 
   //call api to set objects
@@ -29,17 +29,21 @@ function Products({navigation}) {
       <List
         dataArray={items}
         renderRow={rowData => (
-          <Card style={{flexDirection: 'row'}}>
+          <Card style={{ flexDirection: 'row' }}>
             <CardItem
-              style={{width: '30%'}}
+              style={{ width: '30%' }}
               button
-              onPress={() => navigation.navigate('About')}>
+              onPress={() => navigation.navigate('About', {
+                item: rowData
+              })}>
               <View>{/* Image goes here */}</View>
             </CardItem>
             <CardItem
-              style={{width: '70%'}}
+              style={{ width: '70%' }}
               button
-              onPress={() => navigation.navigate('About')}>
+              onPress={() => navigation.navigate('About', {
+                item: rowData
+              })}>
               <View>
                 <View
                   style={{

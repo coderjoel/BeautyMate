@@ -1,53 +1,58 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Button, Header, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-class AboutProduct extends Component {
-
-  prodcut = {
-    name: "Product Name",
-    id: 1,
-    Img: "ProductImg.png",
-    desc: "This is the desc of the product g g g .......... This is the desc of the product g g g........... This is the desc of the product g g g...........",
-    price: 30.0
-  }
 
 
-  order() {
-    const navigation = useNavigation();
-    navigation.navigate('Register');
-  }
+function AboutProduct({ navigation, route }) {
 
-  render() {
-    return (
-      <View>
 
-        <Header
-          centerComponent={{ text: this.prodcut.name }} style={styles.Header}
+  // const data = navigation.getParam('item', 'no info');
+  const data = route.params.item;
+
+
+  const [name, setName] = useState(data.name);
+  const [id, setId] = useState(data.id);
+  const [img, setImg] = useState('');
+  const [description, setdescription] = useState(data.description);
+  const [price, setPrice] = useState(data.price);
+
+  // useEffect(a => {
+  //     console.log(res.data);
+  //     setName(res.data);
+  // }, []);
+
+
+
+
+  return (
+    <View>
+
+      <Header
+        centerComponent={{ text: name }} style={styles.Header}
+      />
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={{ uri: img }}
         />
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={{ uri: this.prodcut.Img }}
-          />
-        </View>
-
-        <View style={{ alignItems: 'center', margin: 15 }}>
-          <Text style={styles.price}>Price : {this.prodcut.price}$</Text>
-        </View>
-
-        <View style={{ alignItems: 'center', margin: 15 }}>
-          <Text style={styles.descprition}>{this.prodcut.desc}</Text>
-        </View>
-
-        <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
-          title="ORDER"
-          onPress={this.order}>
-        </Button>
-
       </View>
-    );
-  }
+
+      <View style={{ alignItems: 'center', margin: 15 }}>
+        <Text style={styles.price}>Price : {price}$</Text>
+      </View>
+
+      <View style={{ alignItems: 'center', margin: 15 }}>
+        <Text style={styles.description}>{description}</Text>
+      </View>
+
+      <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
+        title="ORDER"
+        onPress={() => navigation.navigate('OrderDetail', { item: data })}>
+      </Button>
+
+    </View>
+  );
 }
 
 /*function Cart() {
