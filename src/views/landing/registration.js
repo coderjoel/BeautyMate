@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import {
   Image,
   TouchableOpacity,
@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-function Register({navigation}) {
+function Register({ navigation }) {
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -25,23 +25,34 @@ function Register({navigation}) {
     console.log('I am called - sign up');
     axios
       .post(global.API + '/Account/RegisterAccount', {
-        Username: username,
-        Firstname: firstname,
-        Lastname: lastname,
-        Password: password,
+        FirstName: firstname,
+        LastName: lastname,
         Email: email,
-        Phoneno: phoneno,
+        Password: password,
+        ConfirmPassword: password,
+        UserName: username,
+        PhoneNumber: phoneno,
         Enable2FA: true,
       })
       .then(res => {
-        console.log(res.data);
-        navigation.navigate('HomeTabs');
+        console.log(res);
+        navigation.navigate('Login');
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         navigation.navigate('Register');
       });
   }
+  // {
+  //   "FirstName": "string",
+  //   "LastName": "string",
+  //   "Email": "string",
+  //   "Password": "string",
+  //   "ConfirmPassword": "string",
+  //   "UserName": "string",
+  //   "PhoneNumber": "string",
+  //   "Enable2FA": true
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -101,7 +112,7 @@ function Register({navigation}) {
               placeholderTextColor=""
               onChangeText={text => setPhoneno(text)}></TextInput>
           </View>
-          <TouchableOpacity style={styles.signupButton}>
+          <TouchableOpacity style={styles.signupButton} onPress={signupPress}>
             <Text style={styles.signupButtonTitle}>SIGN UP</Text>
           </TouchableOpacity>
           <Image
