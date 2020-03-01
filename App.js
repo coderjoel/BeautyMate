@@ -15,6 +15,7 @@ import Login from './src/views/landing/login';
 import Register from './src/views/landing/registration';
 import Products from './src/views/productViews/products';
 import Profile from './src/views/profile/profile';
+import Cart from './src/views/cart/cart';
 import AboutProduct from './src/views/productViews/aboutProduct';
 import OrderDetail from './src/views/productViews/orderDetail';
 
@@ -28,16 +29,23 @@ function HomeTabs() {
 
   return (
     <Tab.Navigator>
+
       <Tab.Screen
         name="Products"
         component={Products}
         options={{ title: 'Products' }}
       />
       <Tab.Screen
+        name="Cart"
+        component={Cart}
+        options={{ title: 'Cart' }}
+      />
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{ title: 'Profile' }}
       />
+
     </Tab.Navigator>
   );
 }
@@ -60,6 +68,7 @@ function App() {
         <Stack.Screen name="HomeTabs" component={HomeTabs} />
         <Stack.Screen name="About" component={AboutProduct} />
         <Stack.Screen name="OrderDetail" component={OrderDetail} />
+        <Stack.Screen name="Cart" component={Cart} />
       </Stack.Navigator>
     </NavigationContainer>
   );

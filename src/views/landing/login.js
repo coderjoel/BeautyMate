@@ -28,29 +28,37 @@ function Login({ navigation }) {
 
   const [password, setPassword] = useState('');
   const [login, setLogin] = useState('');
+
   function loginPress() {
     console.log('I am called');
     axios
       .post(global.API + '/Account/Login', {
         EmailOrUsername: login,
         Password: password,
-        Code: 'string',
+        Code: "wadAU",
       })
       .then(res => {
         console.log(res.data);
-        storeData = async () => {
-          try {
-            await AsyncStorage.setItem('@storage_Key', res.Token)
-          } catch (e) {
-            // saving error
-          }
-        }
-        navigation.navigate('HomeTabs');
+        saveFunc(res);
       })
-      .catch(function (error) {
+      .catch(error => {
+        console.log(error.message);
         console.log(error);
         navigation.navigate('Register');
       });
+  }
+
+  async function saveFunc(res) {
+    try {
+      console.log("I am res" + res.data.token);
+      let emtAr = [];
+      await AsyncStorage.setItem('@storage_Key', res.data.token);
+      await AsyncStorage.setItem('cart', JSON.stringify(emtAr));
+    } catch (e) {
+      console.log(e);
+      // saving error
+    }
+    navigation.navigate('HomeTabs');
   }
 
   return (

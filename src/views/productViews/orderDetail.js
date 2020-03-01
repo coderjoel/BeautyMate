@@ -1,13 +1,12 @@
 import React, { Component, useState, useEffect, } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Button, Header, Image } from 'react-native-elements';
-import { useForm, FormContext } from 'react-hook-form';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 function OrderDetail({ navigation, route }) {
 
-  const obj = route.params.item;
+  //const obj = route.params.item;
 
   const [firstLastName, setFirstLastName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
@@ -18,38 +17,35 @@ function OrderDetail({ navigation, route }) {
   const [emailAddress, setEmailAddress] = useState('');
 
 
-  function orderPress() {
-    var TokenHere;
-    getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('@storage_Key')
-        if (value !== null) {
-          axios
-            .post(global.API + '/Order/Purchase', {
-              headers: {
-                Authorization: value
-              },
-              Products: [{
-                ProductId: obj.id,
-                Quantity: 1
-              }
-              ],
-              Email: emailAddress
-            })
-            .then(res => {
-              console.log(res.data);
-              navigation.navigate('HomeTabs');
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
-      } catch (e) {
-        // error reading value
-      }
-    }
+  async function orderPress() {
+    //console.log('Order called', value);
+    try {
+      const value = await AsyncStorage.getItem('@storage_Key')
+      let items = await AsyncStorage.getItem('cart');
+      items = JSON.parse(items)
+      let checkoutItems = [];
+      items.map(item => {
+        let cutItem = { ProductId: item.id, Quantity: 1 }
+        checkoutItems.push(cutItem);
+      });
 
-    console.log('I am called', global.Token);
+      console.log('I am called', value);
+      if (value !== null) {
+        var Concat = "Bearer " + value;
+        axios.post(global.API + '/Order/Purchase', { Products: checkoutItems, Email: emailAddress }, { headers: { Authorization: Concat } })
+          .then(res => {
+            console.log(res.data);
+            navigation.navigate('HomeTabs');
+          })
+          .catch(function (error) {
+            console.log(error);
+            console.log(error.response);
+          });
+      }
+    } catch (e) {
+      // error reading value
+      console.log('I am called', e);
+    }
 
   }
 

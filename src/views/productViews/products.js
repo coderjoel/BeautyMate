@@ -19,7 +19,7 @@ function Products({ navigation }) {
     // setItems(listFromApi);
 
     axios.get(global.API + '/Product/GetProducts').then(res => {
-      console.log(res.data);
+      console.log(res.data, typeof (res.data));
       setItems(res.data);
     });
   }, []);

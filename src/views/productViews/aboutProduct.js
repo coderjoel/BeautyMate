@@ -2,7 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Button, Header, Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 function AboutProduct({ navigation, route }) {
 
@@ -22,7 +22,54 @@ function AboutProduct({ navigation, route }) {
   //     setName(res.data);
   // }, []);
 
+  async function addToCart() {
+    //console.log('Order called', value);
+    try {
+      let value = await AsyncStorage.getItem('cart');
+      console.log("I am value", value);
+      if (value != null) {
+        value = JSON.parse(value);
+        value.push(data);
+        AsyncStorage.setItem('cart', JSON.stringify(value));
 
+      }
+      else {
+        let newAr = [data];
+        AsyncStorage.setItem('cart', JSON.stringify(newAr));
+        // do something else
+      }
+      navigation.navigate('Cart');
+    }
+    catch (error) {
+      console.log('I am Error', error);
+    }
+
+  }
+
+
+  // async function checkOut() {
+  //   //console.log('Order called', value);
+  //   try {
+  //     let value = await AsyncStorage.getItem('cart');
+  //     console.log("I am value", value);
+  //     if (value != null) {
+  //       value = JSON.parse(value);
+  //       value.push(data);
+  //       AsyncStorage.setItem('cart', JSON.stringify(value));
+
+  //     }
+  //     else {
+  //       let newAr = [data];
+  //       AsyncStorage.setItem('cart', JSON.stringify(newAr));
+  //       // do something else
+  //     }
+  //     navigation.navigate('OrderDetail')
+  //   }
+  //   catch (error) {
+  //     console.log('I am Error', error);
+  //   }
+
+  // }
 
 
   return (
@@ -48,7 +95,12 @@ function AboutProduct({ navigation, route }) {
 
       <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
         title="ORDER"
-        onPress={() => navigation.navigate('OrderDetail', { item: data })}>
+        onPress={() => addToCart()}>
+      </Button>
+
+      <Button style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0 }}
+        title="ADD TO CART"
+        onPress={() => addToCart()}>
       </Button>
 
     </View>
