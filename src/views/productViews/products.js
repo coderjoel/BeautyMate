@@ -44,14 +44,20 @@ function Products({ navigation }) {
               onPress={() => navigation.navigate('About', {
                 item: rowData
               })}>
-              <View>
+              <View style={{
+                width: "100%"
+              }}>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
+                    width: "100%"
                   }}>
                   <Text>{rowData.name}</Text>
-                  <Text>Price: {rowData.price}</Text>
+                  <Text style={{
+                    position: "absolute",
+                    right: 0
+                  }}>Price: {rowData.price}</Text>
                 </View>
                 <Text>{rowData.description}</Text>
               </View>

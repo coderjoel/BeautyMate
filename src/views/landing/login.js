@@ -39,12 +39,21 @@ function Login({ navigation }) {
       })
       .then(res => {
         console.log(res.data);
+        
         saveFunc(res);
       })
       .catch(error => {
-        console.log(error.message);
-        console.log(error);
-        navigation.navigate('Register');
+        console.log("Catch now" + error.response.data.message);
+        if (error.response.data.message == "Invalid Code") {
+          console.log("Redirect now");
+          navigation.navigate('FApage', {
+            login: login,
+            password: password
+          });
+        }
+        else {
+          navigation.navigate('Register');
+        }
       });
   }
 

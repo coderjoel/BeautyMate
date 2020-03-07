@@ -18,6 +18,7 @@ import Profile from './src/views/profile/profile';
 import Cart from './src/views/cart/cart';
 import AboutProduct from './src/views/productViews/aboutProduct';
 import OrderDetail from './src/views/productViews/orderDetail';
+import FApage from './src/views/landing/FApage'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -64,6 +65,11 @@ function App() {
           name="Register"
           component={Register}
           options={{ title: 'Register' }}
+        />
+        <Stack.Screen
+          name="FApage"
+          component={FApage}
+          options={{ title: 'FApage' }}
         />
         <Stack.Screen name="HomeTabs" component={HomeTabs} />
         <Stack.Screen name="About" component={AboutProduct} />
