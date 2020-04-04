@@ -35,23 +35,28 @@ function Products() {
             <List
                 dataArray={items}
                 renderRow={rowData => (
-                    <Card style={{ flexDirection: 'row' }}>
-                        {/* <CardItem
-                            style={{ width: '30%' }}
-                        >
-                            <View></View>
-                        </CardItem> */}
-                        <CardItem
-                            style={{ width: '100%' }}>
-                            <View style={{
-                                width: "100%"
-                            }}>
-                                <Text>{rowData.productOrders}</Text>
-                                <Text>Date: {rowData.purchaseDatetime}</Text>
-                                <Text >Transaction id: {rowData.id}</Text>
-                            </View>
-                        </CardItem>
-                    </Card>
+                    <List
+                        dataArray={rowData.productOrders}
+                        renderRow={item => (
+                            <Card style={{ flexDirection: 'row' }}>
+                                {/* <CardItem
+                                style={{ width: '30%' }}
+                            >
+                                <View></View>
+                            </CardItem> */}
+                                <CardItem
+                                    style={{ width: '100%' }}>
+                                    <View style={{
+                                        width: "100%"
+                                    }}>
+                                        <Text>{item.productOrders}</Text>
+                                        <Text>Date: {item.purchaseDatetime}</Text>
+                                        <Text >Transaction id: {item.id}</Text>
+                                    </View>
+                                </CardItem>
+                            </Card>
+                        )}
+                    />
                 )}
             />
         </View>
