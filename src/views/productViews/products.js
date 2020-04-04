@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
-  Text,
-  ListView,
+  Text
 } from 'react-native';
 import { Button, List, ListItem, Card, CardItem } from 'native-base';
 import axios from 'axios';

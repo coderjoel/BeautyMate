@@ -22,6 +22,7 @@ function OrderDetail({ navigation, route }) {
     try {
       const value = await AsyncStorage.getItem('@storage_Key')
       let items = await AsyncStorage.getItem('cart');
+      let tempEmail = await AsyncStorage.getItem('@email');
       items = JSON.parse(items)
       let checkoutItems = [];
       items.map(item => {
@@ -32,9 +33,11 @@ function OrderDetail({ navigation, route }) {
       console.log('I am called', value);
       if (value !== null) {
         var Concat = "Bearer " + value;
-        axios.post(global.API + '/Order/Purchase', { Products: checkoutItems, Email: emailAddress }, { headers: { Authorization: Concat } })
+        axios.post(global.API + '/Order/Purchase', { Products: checkoutItems, Email: tempEmail }, { headers: { Authorization: Concat } })
           .then(res => {
             console.log(res.data);
+            let emtAr = [];
+            AsyncStorage.setItem('cart', JSON.stringify(emtAr));
             navigation.navigate('HomeTabs');
           })
           .catch(function (error) {
@@ -61,7 +64,7 @@ function OrderDetail({ navigation, route }) {
         style={styles.textInput}
         placeholder="John Smith"
         blurOnSubmit
-        onChangeText={text => setfirstLastName(text)}
+        onChangeText={text => setFirstLastName(text)}
         value={firstLastName}
       />
 

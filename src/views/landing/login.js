@@ -31,6 +31,8 @@ function Login({ navigation }) {
 
   function loginPress() {
     console.log('I am called');
+
+
     axios
       .post(global.API + '/Account/Login', {
         EmailOrUsername: login,
@@ -39,7 +41,7 @@ function Login({ navigation }) {
       })
       .then(res => {
         console.log(res.data);
-        
+
         saveFunc(res);
       })
       .catch(error => {
@@ -63,8 +65,9 @@ function Login({ navigation }) {
       let emtAr = [];
       await AsyncStorage.setItem('@storage_Key', res.data.token);
       await AsyncStorage.setItem('cart', JSON.stringify(emtAr));
+      await AsyncStorage.setItem('@email', login);
     } catch (e) {
-      console.log(e);
+      console.log(e.datd);
       // saving error
     }
     navigation.navigate('HomeTabs');

@@ -32,14 +32,14 @@ function Register({ navigation }) {
         ConfirmPassword: password,
         UserName: username,
         PhoneNumber: phoneno,
-        Enable2FA: true,
+        Enable2FA: false,
       })
       .then(res => {
         console.log(res);
         navigation.navigate('Login');
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
         navigation.navigate('Register');
       });
   }

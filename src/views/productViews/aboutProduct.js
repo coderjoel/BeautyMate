@@ -13,7 +13,7 @@ function AboutProduct({ navigation, route }) {
 
   const [name, setName] = useState(data.name);
   const [id, setId] = useState(data.id);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState(data.link);
   const [description, setdescription] = useState(data.description);
   const [price, setPrice] = useState(data.price);
 

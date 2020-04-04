@@ -22,7 +22,7 @@ import FApage from './src/views/landing/FApage'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const API = 'http://beauty-mate-api.azurewebsites.net/api';
+const API = 'http://beauty-mate-backend.azurewebsites.net/api';
 global.Token; //only god will save my soul
 
 function HomeTabs() {
@@ -42,9 +42,9 @@ function HomeTabs() {
         options={{ title: 'Cart' }}
       />
       <Tab.Screen
-        name="Profile"
+        name="Transactions"
         component={Profile}
-        options={{ title: 'Profile' }}
+        options={{ title: 'Transactions' }}
       />
 
     </Tab.Navigator>
